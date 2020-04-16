@@ -1,0 +1,13 @@
+yum install lsof -y
+yum install python3 -y
+python2 /usr/bin/yum reinstall python3-libs -y
+
+yum install epel-release -y
+yum install python-pip -y
+pip install --upgrade pip
+pip install supervisor
+
+
+
+in /etc/rc.d/rc.local
+/usr/bin/screen -dmS python bash -c 'su - ecp -c "cd /home/ecp/ITRI-NLU.v2.3.2/ && ./portManager"'

@@ -1,0 +1,84 @@
+managerPort: 15100
+Setting:
+  portRangeDOWN: 15101
+  portRangeUP: 15200
+  idRangeDOWN: 1
+  idRangeUP: 60
+  CUDA_VISIBLE_DEVICES: 2
+  environment: "source test"
+  file: ./supervisord.conf
+  model: .
+  url : http://192.168.10.3:49001/
+Config:
+  setting:
+    nluxmx: 8G
+    nluxms: 2G
+    ecxmx: 4G
+    ecxms: 2G
+    dmxmx: 4G
+    dmxms: 2G
+    nlgxmx: 4G
+    nlgxms: 2G
+  ic_train:
+    environment: 
+    directory: server/
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/train.log
+    stderr_logfile: console_logs/train.log
+  ic_predict:
+    environment: 
+    directory: server/
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/predict_knowledge.log
+    stderr_logfile: console_logs/predict_knowledge.log
+  nlu_train:
+    environment: LD_LIBRARY_PATH=./license
+    directory: nlu/train_server
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/nlu_train.log
+    stderr_logfile: console_logs/nlu_train.log
+  nlu_predict:
+    environment: LD_LIBRARY_PATH=./license
+    directory: nlu/predict_server
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/nlu_predict.log
+    stderr_logfile: console_logs/nlu_predict.log
+  ec_predict:
+    environment: LD_LIBRARY_PATH=./data/license/
+    directory: error-correction/SpellCheck-REST/
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/ec_predict.log
+    stderr_logfile: console_logs/ec_predict.log
+  dm_predict:
+    environment: LD_LIBRARY_PATH=./data/license/
+    directory: itri-citc-dm/
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/dm_predict.log
+    stderr_logfile: console_logs/dm_predict.log
+  nlg_predict:
+    environment: LD_LIBRARY_PATH=./data/license/
+    directory: itri-citc-nlg/
+    startsecs: 1
+    stopwaitsecs: 1
+    autostart: "false"
+    autorestart: "false"
+    stdout_logfile: console_logs/nlg_predict.log
+    stderr_logfile: console_logs/nlg_predict.log

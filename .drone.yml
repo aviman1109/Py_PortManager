@@ -1,0 +1,39 @@
+workspace:
+  base: /src
+
+kind: pipeline
+name: default
+
+clone:
+depth: 1
+
+steps:
+- name: build
+  image: python:3.6.8
+  commands:
+    - pip install -r requirements.txt
+    - pyinstaller -F apis.py -n portManager
+
+- name: pack_init
+  image: cdrx/pyinstaller-linux:python3
+  pull: always
+
+- name: move
+  image: alpine
+  commands:
+    - ls -al dist/
+    - cp dist/portManager .
+    - ls -al
+
+- name: scp files
+  image: appleboy/drone-scp
+  settings:
+    host: 192.168.10.3
+    username: ecp
+    password: csii1qaz@WSX
+    port: 22
+    target: ~/PortManager
+    source: 
+      - portManager
+      - setting.yaml
+    
